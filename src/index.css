@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+/* Paleta del wireframe: verde farmacia como color de marca. */
+@theme {
+  --color-brand-50: #eef7f2;
+  --color-brand-100: #d7ece1;
+  --color-brand-600: #24704f;
+  --color-brand-700: #1e5e48;
+  --color-brand-800: #174a39;
+  --color-brand-900: #10362a;
+}
+
+@layer base {
+  html {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--color-slate-900);
+    background: white;
+  }
+
+  /* Foco siempre visible al navegar con teclado. */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .input {
+    @apply block w-full rounded border border-slate-500 bg-white px-3 py-2 text-base text-slate-900 placeholder:text-slate-500 disabled:bg-slate-100;
+  }
+  .input-invalid {
+    @apply border-red-700 bg-red-50;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded bg-brand-700 px-4 py-2 font-semibold text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-slate-700 bg-white px-4 py-2 font-medium text-slate-900 hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-red-800 bg-white px-4 py-2 font-medium text-red-800 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .card {
+    @apply rounded-md border border-slate-700 bg-white p-4;
+  }
+  .link {
+    @apply text-brand-700 underline hover:text-brand-900;
+  }
+  /* Tablas que en pantallas chicas pasan a tarjetas (cada celda muestra su data-label). */
+  .table-cards {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .table-cards th {
+    @apply border border-slate-400 bg-slate-100 px-3 py-2 font-semibold;
+  }
+  .table-cards td {
+    @apply border border-slate-300 px-3 py-2 align-top;
+  }
+  @media (max-width: 767px) {
+    .table-cards thead {
+      @apply sr-only;
+    }
+    .table-cards tr {
+      @apply mb-3 block rounded-md border border-slate-700 p-3;
+    }
+    .table-cards td {
+      @apply flex justify-between gap-4 border-0 px-0 py-1 text-right;
+    }
+    .table-cards td::before {
+      content: attr(data-label);
+      @apply text-left font-semibold text-slate-600;
+    }
+    .table-cards td[data-label='']::before {
+      content: none;
+    }
+  }
+}
